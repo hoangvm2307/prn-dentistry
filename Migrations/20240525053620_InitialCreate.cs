@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -12,35 +13,32 @@ namespace prn_dentistry.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Clinics",
+                name: "ClinicOwners",
                 columns: table => new
                 {
-                    ClinicID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OpeningHours = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ClosingHours = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    OwnerID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clinics", x => x.ClinicID);
+                    table.PrimaryKey("PK_ClinicOwners", x => x.OwnerID);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
-                    CustomerID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CustomerID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: false),
+                    Gender = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,12 +49,12 @@ namespace prn_dentistry.Migrations
                 name: "Services",
                 columns: table => new
                 {
-                    ServiceID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Duration = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    ServiceID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    Duration = table.Column<int>(type: "integer", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,24 +62,27 @@ namespace prn_dentistry.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ClinicOwners",
+                name: "Clinics",
                 columns: table => new
                 {
-                    OwnerID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClinicID = table.Column<int>(type: "int", nullable: false)
+                    ClinicID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    OpeningHours = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ClosingHours = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    OwnerID = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ClinicOwners", x => x.OwnerID);
+                    table.PrimaryKey("PK_Clinics", x => x.ClinicID);
                     table.ForeignKey(
-                        name: "FK_ClinicOwners_Clinics_ClinicID",
-                        column: x => x.ClinicID,
-                        principalTable: "Clinics",
-                        principalColumn: "ClinicID",
+                        name: "FK_Clinics_ClinicOwners_OwnerID",
+                        column: x => x.OwnerID,
+                        principalTable: "ClinicOwners",
+                        principalColumn: "OwnerID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -89,14 +90,14 @@ namespace prn_dentistry.Migrations
                 name: "ClinicSchedules",
                 columns: table => new
                 {
-                    ScheduleID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ClinicID = table.Column<int>(type: "int", nullable: false),
-                    DayOfWeek = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    OpeningTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ClosingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SlotDuration = table.Column<int>(type: "int", nullable: false),
-                    MaxPatientsPerSlot = table.Column<int>(type: "int", nullable: false)
+                    ScheduleID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ClinicID = table.Column<int>(type: "integer", nullable: false),
+                    DayOfWeek = table.Column<string>(type: "text", nullable: false),
+                    OpeningTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ClosingTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    SlotDuration = table.Column<int>(type: "integer", nullable: false),
+                    MaxPatientsPerSlot = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -113,13 +114,13 @@ namespace prn_dentistry.Migrations
                 name: "Dentists",
                 columns: table => new
                 {
-                    DentistID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Specialization = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClinicID = table.Column<int>(type: "int", nullable: false)
+                    DentistID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Specialization = table.Column<string>(type: "text", nullable: false),
+                    ClinicID = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -136,14 +137,14 @@ namespace prn_dentistry.Migrations
                 name: "Appointments",
                 columns: table => new
                 {
-                    AppointmentID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerID = table.Column<int>(type: "int", nullable: false),
-                    DentistID = table.Column<int>(type: "int", nullable: false),
-                    ServiceID = table.Column<int>(type: "int", nullable: false),
-                    AppointmentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AppointmentTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    AppointmentID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CustomerID = table.Column<int>(type: "integer", nullable: false),
+                    DentistID = table.Column<int>(type: "integer", nullable: false),
+                    ServiceID = table.Column<int>(type: "integer", nullable: false),
+                    AppointmentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    AppointmentTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Status = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -172,12 +173,12 @@ namespace prn_dentistry.Migrations
                 name: "ChatMessage",
                 columns: table => new
                 {
-                    MessageID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SenderID = table.Column<int>(type: "int", nullable: false),
-                    ReceiverID = table.Column<int>(type: "int", nullable: false),
-                    MessageContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Timestamp = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    MessageID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SenderID = table.Column<int>(type: "integer", nullable: false),
+                    ReceiverID = table.Column<int>(type: "integer", nullable: false),
+                    MessageContent = table.Column<string>(type: "text", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -200,14 +201,16 @@ namespace prn_dentistry.Migrations
                 name: "TreatmentPlans",
                 columns: table => new
                 {
-                    PlanID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerID = table.Column<int>(type: "int", nullable: false),
-                    DentistID = table.Column<int>(type: "int", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Frequency = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NextAppointmentDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    PlanID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CustomerID = table.Column<int>(type: "integer", nullable: false),
+                    DentistID = table.Column<int>(type: "integer", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Frequency = table.Column<string>(type: "text", nullable: false),
+                    NextAppointmentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Status = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    PaymentStatus = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -252,9 +255,9 @@ namespace prn_dentistry.Migrations
                 column: "SenderID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ClinicOwners_ClinicID",
-                table: "ClinicOwners",
-                column: "ClinicID");
+                name: "IX_Clinics_OwnerID",
+                table: "Clinics",
+                column: "OwnerID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClinicSchedules_ClinicID",
@@ -287,9 +290,6 @@ namespace prn_dentistry.Migrations
                 name: "ChatMessage");
 
             migrationBuilder.DropTable(
-                name: "ClinicOwners");
-
-            migrationBuilder.DropTable(
                 name: "ClinicSchedules");
 
             migrationBuilder.DropTable(
@@ -306,6 +306,9 @@ namespace prn_dentistry.Migrations
 
             migrationBuilder.DropTable(
                 name: "Clinics");
+
+            migrationBuilder.DropTable(
+                name: "ClinicOwners");
         }
     }
 }

@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace prn_dentistry.API.Models
 {
-  public class Clinic
+  public class Clinic : BaseEntity
   {
     [Key]
     public int ClinicID { get; set; }
@@ -12,7 +13,9 @@ namespace prn_dentistry.API.Models
     public DateTime OpeningHours { get; set; }
     public DateTime ClosingHours { get; set; }
 
-    public List<ClinicOwner> ClinicOwners { get; set; }
+    public int OwnerID { get; set; }
+    [ForeignKey("OwnerID")]
+    public ClinicOwner ClinicOwner { get; set; }
     public List<Dentist> Dentists { get; set; }
     public List<ClinicSchedule> ClinicSchedules { get; set; }
   }

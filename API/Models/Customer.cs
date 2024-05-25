@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace prn_dentistry.API.Models
 {
-  public class Customer
+  public class Customer : BaseEntity
   {
     [Key]
     public int CustomerID { get; set; }
@@ -13,8 +13,8 @@ namespace prn_dentistry.API.Models
     public string Address { get; set; }
     public string Gender { get; set; }
 
-    public ICollection<Appointment> Appointments { get; set; }
-    public ICollection<TreatmentPlan> TreatmentPlans { get; set; }
-    public ICollection<ChatMessage> SentMessages { get; set; }
+    public List<Appointment> Appointments { get; set; }
+    public List<TreatmentPlan> TreatmentPlans { get; set; }
+    public List<ChatMessage> ChatMessages { get; set; }
   }
 }

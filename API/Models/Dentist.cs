@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace prn_dentistry.API.Models
 {
-  public class Dentist
+  public class Dentist : BaseEntity
   {
     [Key]
     public int DentistID { get; set; }
@@ -15,5 +15,8 @@ namespace prn_dentistry.API.Models
     [ForeignKey("Clinic")]
     public int ClinicID { get; set; }
     public Clinic Clinic { get; set; }
+    public List<Appointment> Appointments { get; set; }
+    public List<TreatmentPlan> TreatmentPlans { get; set; }
+    public List<ChatMessage> ChatMessages { get; set; }
   }
 }

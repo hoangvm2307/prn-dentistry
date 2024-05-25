@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace prn_dentistry.API.Models
 {
-  public class ChatMessage
+  public class ChatMessage : BaseEntity
   {
     [Key]
     public int MessageID { get; set; }

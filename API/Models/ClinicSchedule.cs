@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace prn_dentistry.API.Models
 {
-  public class ClinicSchedule
+  public class ClinicSchedule : BaseEntity
   {
     [Key]
     public int ScheduleID { get; set; }

@@ -1,13 +1,9 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace prn_dentistry.API.Models
 {
-  public class TreatmentPlan
+  public class TreatmentPlan : BaseEntity
   {
     [Key]
     public int PlanID { get; set; }
@@ -24,5 +20,10 @@ namespace prn_dentistry.API.Models
     public DateTime EndDate { get; set; }
     public string Frequency { get; set; }
     public DateTime NextAppointmentDate { get; set; }
+    [MaxLength(50)]
+    public string Status { get; set; }
+
+    [MaxLength(50)]
+    public string PaymentStatus { get; set; }
   }
 }

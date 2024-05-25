@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace prn_dentistry.API.Models
 {
-  public class Service
+  public class Service : BaseEntity
   {
     [Key]
     public int ServiceID { get; set; }

@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace prn_dentistry.API.controllers
 {
-    public class Clinic
+  public class Clinic
     {
         public int ClinicID {get;set;}
         public string Name {get;set;}

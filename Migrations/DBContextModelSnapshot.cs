@@ -2,8 +2,8 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using prn_dentistry.API.Data;
 
 #nullable disable
@@ -18,36 +18,36 @@ namespace prn_dentistry.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.19")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("prn_dentistry.API.Models.Appointment", b =>
                 {
                     b.Property<int>("AppointmentID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AppointmentID"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AppointmentID"));
 
                     b.Property<DateTime>("AppointmentDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("AppointmentTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("CustomerID")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("DentistID")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("ServiceID")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("AppointmentID");
 
@@ -64,22 +64,22 @@ namespace prn_dentistry.Migrations
                 {
                     b.Property<int>("MessageID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MessageID"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MessageID"));
 
                     b.Property<string>("MessageContent")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("ReceiverID")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("SenderID")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("Timestamp")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("MessageID");
 
@@ -94,33 +94,38 @@ namespace prn_dentistry.Migrations
                 {
                     b.Property<int>("ClinicID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClinicID"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ClinicID"));
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("ClosingHours")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("OpeningHours")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("OwnerID")
+                        .HasColumnType("integer");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ClinicID");
+
+                    b.HasIndex("OwnerID");
 
                     b.ToTable("Clinics");
                 });
@@ -129,28 +134,23 @@ namespace prn_dentistry.Migrations
                 {
                     b.Property<int>("OwnerID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OwnerID"));
-
-                    b.Property<int>("ClinicID")
-                        .HasColumnType("int");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("OwnerID"));
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("OwnerID");
-
-                    b.HasIndex("ClinicID");
 
                     b.ToTable("ClinicOwners");
                 });
@@ -159,28 +159,28 @@ namespace prn_dentistry.Migrations
                 {
                     b.Property<int>("ScheduleID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ScheduleID"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ScheduleID"));
 
                     b.Property<int>("ClinicID")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("ClosingTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("DayOfWeek")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("MaxPatientsPerSlot")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("OpeningTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("SlotDuration")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("ScheduleID");
 
@@ -193,32 +193,32 @@ namespace prn_dentistry.Migrations
                 {
                     b.Property<int>("CustomerID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerID"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CustomerID"));
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Gender")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("CustomerID");
 
@@ -229,28 +229,28 @@ namespace prn_dentistry.Migrations
                 {
                     b.Property<int>("DentistID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DentistID"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("DentistID"));
 
                     b.Property<int>("ClinicID")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Specialization")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("DentistID");
 
@@ -263,20 +263,20 @@ namespace prn_dentistry.Migrations
                 {
                     b.Property<int>("ServiceID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServiceID"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ServiceID"));
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("Duration")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -290,28 +290,38 @@ namespace prn_dentistry.Migrations
                 {
                     b.Property<int>("PlanID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlanID"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PlanID"));
 
                     b.Property<int>("CustomerID")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("DentistID")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Frequency")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("NextAppointmentDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("PaymentStatus")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("PlanID");
 
@@ -331,7 +341,7 @@ namespace prn_dentistry.Migrations
                         .IsRequired();
 
                     b.HasOne("prn_dentistry.API.Models.Dentist", "Dentist")
-                        .WithMany()
+                        .WithMany("Appointments")
                         .HasForeignKey("DentistID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -352,13 +362,13 @@ namespace prn_dentistry.Migrations
             modelBuilder.Entity("prn_dentistry.API.Models.ChatMessage", b =>
                 {
                     b.HasOne("prn_dentistry.API.Models.Dentist", "Receiver")
-                        .WithMany()
+                        .WithMany("ChatMessages")
                         .HasForeignKey("ReceiverID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("prn_dentistry.API.Models.Customer", "Sender")
-                        .WithMany("SentMessages")
+                        .WithMany("ChatMessages")
                         .HasForeignKey("SenderID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -368,15 +378,15 @@ namespace prn_dentistry.Migrations
                     b.Navigation("Sender");
                 });
 
-            modelBuilder.Entity("prn_dentistry.API.Models.ClinicOwner", b =>
+            modelBuilder.Entity("prn_dentistry.API.Models.Clinic", b =>
                 {
-                    b.HasOne("prn_dentistry.API.Models.Clinic", "Clinic")
-                        .WithMany("ClinicOwners")
-                        .HasForeignKey("ClinicID")
+                    b.HasOne("prn_dentistry.API.Models.ClinicOwner", "ClinicOwner")
+                        .WithMany("Clinics")
+                        .HasForeignKey("OwnerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Clinic");
+                    b.Navigation("ClinicOwner");
                 });
 
             modelBuilder.Entity("prn_dentistry.API.Models.ClinicSchedule", b =>
@@ -410,7 +420,7 @@ namespace prn_dentistry.Migrations
                         .IsRequired();
 
                     b.HasOne("prn_dentistry.API.Models.Dentist", "Dentist")
-                        .WithMany()
+                        .WithMany("TreatmentPlans")
                         .HasForeignKey("DentistID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -422,18 +432,30 @@ namespace prn_dentistry.Migrations
 
             modelBuilder.Entity("prn_dentistry.API.Models.Clinic", b =>
                 {
-                    b.Navigation("ClinicOwners");
-
                     b.Navigation("ClinicSchedules");
 
                     b.Navigation("Dentists");
+                });
+
+            modelBuilder.Entity("prn_dentistry.API.Models.ClinicOwner", b =>
+                {
+                    b.Navigation("Clinics");
                 });
 
             modelBuilder.Entity("prn_dentistry.API.Models.Customer", b =>
                 {
                     b.Navigation("Appointments");
 
-                    b.Navigation("SentMessages");
+                    b.Navigation("ChatMessages");
+
+                    b.Navigation("TreatmentPlans");
+                });
+
+            modelBuilder.Entity("prn_dentistry.API.Models.Dentist", b =>
+                {
+                    b.Navigation("Appointments");
+
+                    b.Navigation("ChatMessages");
 
                     b.Navigation("TreatmentPlans");
                 });
