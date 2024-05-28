@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using prn_dentistry.API.Data;
-using prn_dentistry.API.DependencyInjection;
+using prn_dentistry.API.Extensions;
 using prn_dentistry.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -60,7 +60,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
   });
 builder.Services.AddAuthorization();
 builder.Services.AddAccountDependencyGroup();
+builder.Services.AddAppointmentDependencyGroup();
+builder.Services.AddTreatmentPlanDependencyGroup();
 builder.Services.AddScoped<TokenService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
