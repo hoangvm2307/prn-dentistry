@@ -62,6 +62,8 @@ builder.Services.AddAuthorization();
 builder.Services.AddAccountDependencyGroup();
 builder.Services.AddAppointmentDependencyGroup();
 builder.Services.AddTreatmentPlanDependencyGroup();
+builder.Services.AddServiceDependencyGroup();
+builder.Services.AddClinicScheduleDependencyGroup();
 builder.Services.AddScoped<TokenService>();
 
 var app = builder.Build();
