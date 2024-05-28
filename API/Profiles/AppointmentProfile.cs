@@ -1,6 +1,6 @@
 
 using AutoMapper;
-using prn_dentistry.API.DTOs.AppointmentDTO;
+using prn_dentistry.API.DTOs.AppointmentDto;
 using prn_dentistry.API.Models;
 namespace prn_dentistry.API.Profiles
 
@@ -9,9 +9,9 @@ namespace prn_dentistry.API.Profiles
   {
     public AppointmentProfile()
     {
-      CreateMap<AppointmentDTO, Appointment>().ReverseMap();
-      CreateMap<AppointmentCreateDTO, Appointment>().ReverseMap();
-      CreateMap<AppointmentUpdateDTO, Appointment>().ReverseMap();
+      CreateMap<AppointmentDto, Appointment>().ReverseMap();
+      CreateMap<AppointmentCreateDto, Appointment>().ReverseMap();
+      CreateMap<AppointmentUpdateDto, Appointment>().ReverseMap();
     }
   }
 }

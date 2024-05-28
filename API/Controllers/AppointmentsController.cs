@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using prn_dentistry.API.DTOs.AppointmentDTO;
+using prn_dentistry.API.DTOs.AppointmentDto;
 using prn_dentistry.API.Services;
 
 namespace prn_dentistry.API.Controllers
@@ -14,14 +14,14 @@ namespace prn_dentistry.API.Controllers
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<AppointmentDTO>>> GetAllAppointments()
+    public async Task<ActionResult<IEnumerable<AppointmentDto>>> GetAllAppointments()
     {
       var appointments = await _appointmentService.GetAllAppointmentsAsync();
       return Ok(appointments);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<AppointmentDTO>> GetAppointment(int id)
+    public async Task<ActionResult<AppointmentDto>> GetAppointment(int id)
     {
       var appointment = await _appointmentService.GetAppointmentByIdAsync(id);
 
@@ -32,16 +32,16 @@ namespace prn_dentistry.API.Controllers
     }
 
     [HttpPost]
-    public async Task<ActionResult<AppointmentDTO>> CreateAppointment(AppointmentCreateDTO appointmentCreateDTO)
+    public async Task<ActionResult<AppointmentDto>> CreateAppointment(AppointmentCreateDto appointmentCreateDto)
     {
-      var appointment = await _appointmentService.CreateAppointmentAsync(appointmentCreateDTO);
+      var appointment = await _appointmentService.CreateAppointmentAsync(appointmentCreateDto);
       return CreatedAtAction(nameof(GetAppointment), new { id = appointment.AppointmentID }, appointment);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAppointment(int id, AppointmentUpdateDTO appointmentUpdateDTO)
+    public async Task<IActionResult> UpdateAppointment(int id, AppointmentUpdateDto appointmentUpdateDto)
     {
-      var appointment = await _appointmentService.UpdateAppointmentAsync(id, appointmentUpdateDTO);
+      var appointment = await _appointmentService.UpdateAppointmentAsync(id, appointmentUpdateDto);
 
       if (appointment == null)
         return NotFound();

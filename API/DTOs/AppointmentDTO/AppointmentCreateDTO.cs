@@ -1,6 +1,6 @@
-namespace prn_dentistry.API.DTOs.AppointmentDTO
+namespace prn_dentistry.API.DTOs.AppointmentDto
 {
-  public class AppointmentCreateDTO
+  public class AppointmentCreateDto
   {
     public int CustomerID { get; set; }
     public int DentistID { get; set; }

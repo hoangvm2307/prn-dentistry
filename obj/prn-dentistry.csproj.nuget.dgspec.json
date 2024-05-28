@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\prn-dentistry.csproj": {}
+    "D:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\prn-dentistry.csproj": {}
   },
   "projects": {
-    "d:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\prn-dentistry.csproj": {
+    "D:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\prn-dentistry.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\prn-dentistry.csproj",
+        "projectUniqueName": "D:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\prn-dentistry.csproj",
         "projectName": "prn-dentistry",
-        "projectPath": "d:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\prn-dentistry.csproj",
+        "projectPath": "D:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\prn-dentistry.csproj",
         "packagesPath": "C:\\Users\\hoangvmdeptrai\\.nuget\\packages\\",
-        "outputPath": "d:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\obj\\",
+        "outputPath": "D:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hoangvmdeptrai\\AppData\\Roaming\\NuGet\\NuGet.Config",

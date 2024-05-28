@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using prn_dentistry.API.DTOs.Account;
+using prn_dentistry.API.DTOs.AccountDto;
 using prn_dentistry.API.Services;
 
 namespace prn_dentistry.API.Controllers
@@ -15,7 +15,7 @@ namespace prn_dentistry.API.Controllers
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterDTO registerDto)
+    public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
     {
       if (registerDto == null || !ModelState.IsValid) return BadRequest("Invalid registration request");
 
@@ -27,7 +27,7 @@ namespace prn_dentistry.API.Controllers
     }
 
     [HttpPost("login")]
-    public async Task<ActionResult<UserDTO>> Login([FromBody] LoginDTO loginDto)
+    public async Task<ActionResult<UserDto>> Login([FromBody] LoginDto loginDto)
     {
       if (loginDto == null || !ModelState.IsValid) return BadRequest("Invalid login request");
 
@@ -40,7 +40,7 @@ namespace prn_dentistry.API.Controllers
 
     [Authorize]
     [HttpGet("currentUser")]
-    public async Task<ActionResult<UserDTO>> GetCurrentUser()
+    public async Task<ActionResult<UserDto>> GetCurrentUser()
     {
       return await _accountService.GetCurrentUser(User.Identity.Name);
     }

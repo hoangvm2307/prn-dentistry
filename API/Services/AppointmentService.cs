@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
-using prn_dentistry.API.DTOs.AppointmentDTO;
+using prn_dentistry.API.DTOs.AppointmentDto;
 using prn_dentistry.API.Models;
 using prn_dentistry.API.Repositories;
 
@@ -19,39 +15,39 @@ namespace prn_dentistry.API.Services
       _appointmentRepository = appointmentRepository;
       _mapper = mapper;
     }
-    public async Task<IEnumerable<AppointmentDTO>> GetAllAppointmentsAsync()
+    public async Task<IEnumerable<AppointmentDto>> GetAllAppointmentsAsync()
     {
       var appointments = await _appointmentRepository.GetAllAppointmentsAsync();
-      return _mapper.Map<IEnumerable<AppointmentDTO>>(appointments);
+      return _mapper.Map<IEnumerable<AppointmentDto>>(appointments);
     }
 
-    public async Task<AppointmentDTO> GetAppointmentByIdAsync(int id)
+    public async Task<AppointmentDto> GetAppointmentByIdAsync(int id)
     {
       var appointment = await _appointmentRepository.GetAppointmentByIdAsync(id);
       if (appointment == null)
         return null;
 
-      return _mapper.Map<AppointmentDTO>(appointment);
+      return _mapper.Map<AppointmentDto>(appointment);
     }
 
-    public async Task<AppointmentDTO> CreateAppointmentAsync(AppointmentCreateDTO appointmentCreateDTO)
+    public async Task<AppointmentDto> CreateAppointmentAsync(AppointmentCreateDto appointmentCreateDto)
     {
-      var appointment = _mapper.Map<Appointment>(appointmentCreateDTO);
+      var appointment = _mapper.Map<Appointment>(appointmentCreateDto);
       await _appointmentRepository.AddAppointmentAsync(appointment);
 
-      return _mapper.Map<AppointmentDTO>(appointment);
+      return _mapper.Map<AppointmentDto>(appointment);
     }
 
-    public async Task<AppointmentDTO> UpdateAppointmentAsync(int id, AppointmentUpdateDTO appointmentUpdateDTO)
+    public async Task<AppointmentDto> UpdateAppointmentAsync(int id, AppointmentUpdateDto appointmentUpdateDto)
     {
       var appointment = await _appointmentRepository.GetAppointmentByIdAsync(id);
       if (appointment == null)
         return null;
 
-      _mapper.Map(appointmentUpdateDTO, appointment);
+      _mapper.Map(appointmentUpdateDto, appointment);
       await _appointmentRepository.UpdateAppointmentAsync(appointment);
 
-      return _mapper.Map<AppointmentDTO>(appointment);
+      return _mapper.Map<AppointmentDto>(appointment);
     }
 
     public async Task<bool> DeleteAppointmentAsync(int id)

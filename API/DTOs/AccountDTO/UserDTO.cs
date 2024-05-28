@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace prn_dentistry.API.DTOs.Account
+namespace prn_dentistry.API.DTOs.AccountDto
 {
-  public class UserDTO
+  public class UserDto
   {
     public string Email { get; set; }
     public string Token { get; set; }

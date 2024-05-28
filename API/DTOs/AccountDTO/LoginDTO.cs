@@ -1,6 +1,6 @@
-namespace prn_dentistry.API.DTOs.Account
+namespace prn_dentistry.API.DTOs.AccountDto
 {
-  public class LoginDTO
+  public class LoginDto
   {
     public string Username { get; set; }
     public string Password { get; set; }

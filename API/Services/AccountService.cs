@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using prn_dentistry.API.DTOs.Account;
+using prn_dentistry.API.DTOs.AccountDto;
 using prn_dentistry.API.Repositories;
 
 namespace prn_dentistry.API.Services
@@ -14,14 +14,16 @@ namespace prn_dentistry.API.Services
       _accountRepository = accountRepository;
       _tokenService = tokenService;
     }
-    public async Task<UserDTO> LoginAsync(LoginDTO loginDto)
+    public async Task<UserDto> LoginAsync(LoginDto loginDto)
     {
       var signInResult = await _accountRepository.LoginAsync(loginDto.Username, loginDto.Password);
 
-      if(signInResult.Succeeded){
+      if (signInResult.Succeeded)
+      {
         var user = await _accountRepository.GetUserByUsernameAsync(loginDto.Username);
-        
-        return new UserDTO {
+
+        return new UserDto
+        {
           Email = user.Email,
           Token = await _tokenService.GenerateToken(user)
         };
@@ -30,7 +32,7 @@ namespace prn_dentistry.API.Services
       return null;
     }
 
-    public async Task<IdentityResult> RegisterAsync(RegisterDTO registerDto)
+    public async Task<IdentityResult> RegisterAsync(RegisterDto registerDto)
     {
       var user = new IdentityUser
       {
@@ -40,10 +42,12 @@ namespace prn_dentistry.API.Services
       return await _accountRepository.RegisterAsync(user, registerDto.Password);
     }
 
-    public async Task<ActionResult<UserDTO>> GetCurrentUser(string username){
+    public async Task<ActionResult<UserDto>> GetCurrentUser(string username)
+    {
       var user = await _accountRepository.GetUserByUsernameAsync(username);
 
-      return new UserDTO{
+      return new UserDto
+      {
         Email = user.Email,
         Token = await _tokenService.GenerateToken(user)
       };
