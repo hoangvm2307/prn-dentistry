@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using prn_dentistry.API.DTOs.Account;
-using prn_dentistry.API.Models;
 using prn_dentistry.API.Repositories;
 
 namespace prn_dentistry.API.Services

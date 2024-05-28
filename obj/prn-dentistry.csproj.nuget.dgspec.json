@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\prn-dentistry.csproj": {}
+    "d:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\prn-dentistry.csproj": {}
   },
   "projects": {
-    "D:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\prn-dentistry.csproj": {
+    "d:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\prn-dentistry.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\prn-dentistry.csproj",
+        "projectUniqueName": "d:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\prn-dentistry.csproj",
         "projectName": "prn-dentistry",
-        "projectPath": "D:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\prn-dentistry.csproj",
+        "projectPath": "d:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\prn-dentistry.csproj",
         "packagesPath": "C:\\Users\\hoangvmdeptrai\\.nuget\\packages\\",
-        "outputPath": "D:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\obj\\",
+        "outputPath": "d:\\Learning\\FPT Course\\PRN221\\prn-dentistry\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\hoangvmdeptrai\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,14 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[7.0.19, )"
