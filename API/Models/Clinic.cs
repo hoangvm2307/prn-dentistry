@@ -12,10 +12,7 @@ namespace prn_dentistry.API.Models
     public string Email { get; set; }
     public DateTime OpeningHours { get; set; }
     public DateTime ClosingHours { get; set; }
-
-    public int OwnerID { get; set; }
-    [ForeignKey("OwnerID")]
-    public ClinicOwner ClinicOwner { get; set; }
+    public List<ClinicOwner> ClinicOwners { get; set; }
     public List<Dentist> Dentists { get; set; }
     public List<ClinicSchedule> ClinicSchedules { get; set; }
   }

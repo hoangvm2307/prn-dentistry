@@ -64,17 +64,17 @@ namespace prn_dentistry.API.Data
           .Property(tp => tp.PlanID)
           .ValueGeneratedOnAdd();
 
-      builder.Entity<ClinicOwner>()
-            .HasMany(c => c.Clinics)
-            .WithOne(c => c.ClinicOwner)
-            .HasForeignKey(c => c.OwnerID);
-
       // Clinic -> Dentists (One to Many)
       builder.Entity<Clinic>()
           .HasMany(c => c.Dentists)
           .WithOne(d => d.Clinic)
           .HasForeignKey(d => d.ClinicID);
 
+      // Clinic -> ClinicOwners (One to Many)
+      builder.Entity<Clinic>()
+          .HasMany(c => c.ClinicOwners)
+          .WithOne(d => d.Clinic)
+          .HasForeignKey(d => d.ClinicID);
       // Clinic -> ClinicSchedules (One to Many)
       builder.Entity<Clinic>()
           .HasMany(c => c.ClinicSchedules)
